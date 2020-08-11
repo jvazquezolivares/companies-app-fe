@@ -9,6 +9,6 @@ API = "http://localhost:3001";
 }
 
 //companies endpoint
-export const COMPANIES = API + "/api/v1/companies"
+export const COMPANIES_API = API + "/api/v1/companies"
 
 //another endpoints

@@ -1,46 +1,32 @@
 import React, { Component } from 'react';
 import Company from './company';
-
-const companies_data = [
-    {
-        account_id: 1, 
-        name: "company1", 
-        city: "Monterrey", 
-        companies: [
-            {
-                account_id: 3, 
-                name: "company3",
-                city: "Monterrey",
-                companies: []
-            },
-            {
-                account_id: 4,
-                name: "company4",
-                city: "Monterrey",
-                companies: [
-                  {
-                    account_id: 7,
-                    name: "company7",
-                    city: "Monterrey",
-                    companies: []
-                  }
-                ]
-            }
-        ]
-    }, 
-    {
-        account_id: 5, 
-        name: "company5", 
-        city: "Monterrey", 
-        companies: []
-    }
-];
+import { COMPANIES_API } from '../services/EndpointApi.js';
+import axios from 'axios';
 
 export default class Companies extends Component {
 
   state = {
-    nodes: companies_data,
-  }; 
+    nodes: []
+  };
+
+  componentDidMount(){
+     this.getCompanies()
+  }
+
+  getCompanies = ()=> {
+    axios.get(COMPANIES_API, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        if (response.data) {
+          this.setState({
+            nodes: response.data.companies
+          })
+        }
+      });
+  }
 
   render() {
     return (
